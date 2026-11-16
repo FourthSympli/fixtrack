@@ -1,0 +1,6 @@
+{
+  "name": "FixTrack",
+  "description": "Repair shop management system for tracking customers, phones and laptops, repair status, and payments.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

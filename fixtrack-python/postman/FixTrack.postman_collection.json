@@ -1,0 +1,130 @@
+{
+  "info": {
+    "name": "FixTrack Repair Shop API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for testing FixTrack FastAPI endpoints."
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth - Register",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": "{{baseUrl}}/api/auth/register",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"full_name\": \"Alex Rivera\",\n  \"email\": \"newtech@fixtrack.local\",\n  \"password\": \"fixtrack123\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Auth - Login (Demo Account)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const json = pm.response.json();",
+              "if (json.access_token) { pm.collectionVariables.set('token', json.access_token); }"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "url": "{{baseUrl}}/api/auth/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"tech@fixtrack.local\",\n  \"password\": \"fixtrack123\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Dashboard - Stats",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+        "url": "{{baseUrl}}/api/dashboard/stats"
+      }
+    },
+    {
+      "name": "Customers - List & Search",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+        "url": "{{baseUrl}}/api/customers?search="
+      }
+    },
+    {
+      "name": "Customers - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {"key": "Content-Type", "value": "application/json"},
+          {"key": "Authorization", "value": "Bearer {{token}}"}
+        ],
+        "url": "{{baseUrl}}/api/customers",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Devon Brooks\",\n  \"phone\": \"(415) 555-0888\",\n  \"email\": \"devon@example.com\",\n  \"address\": \"220 Pine St\",\n  \"notes\": \"Walk-in\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Devices - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {"key": "Content-Type", "value": "application/json"},
+          {"key": "Authorization", "value": "Bearer {{token}}"}
+        ],
+        "url": "{{baseUrl}}/api/devices",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"customer_id\": 1,\n  \"device_type\": \"Phone\",\n  \"brand\": \"Apple\",\n  \"model\": \"iPhone 15 Pro\",\n  \"serial_number\": \"F2L991100\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Repairs - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {"key": "Content-Type", "value": "application/json"},
+          {"key": "Authorization", "value": "Bearer {{token}}"}
+        ],
+        "url": "{{baseUrl}}/api/repairs",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"customer_id\": 1,\n  \"device_id\": 1,\n  \"issue_description\": \"Battery replacement needed\",\n  \"estimated_cost\": 99,\n  \"amount_paid\": 0\n}"
+        }
+      }
+    },
+    {
+      "name": "Repairs - Update Status & Payment",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {"key": "Content-Type", "value": "application/json"},
+          {"key": "Authorization", "value": "Bearer {{token}}"}
+        ],
+        "url": "{{baseUrl}}/api/repairs/1",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"Ready\",\n  \"amount_paid\": 99\n}"
+        }
+      }
+    }
+  ]
+}

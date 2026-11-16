@@ -1,0 +1,251 @@
+{
+  "nextIds": {
+    "user": 3,
+    "customer": 6,
+    "device": 8,
+    "repair": 8,
+    "ticketNum": 1008
+  },
+  "users": [
+    {
+      "id": 1,
+      "fullName": "Alex Rivera",
+      "email": "tech@fixtrack.local",
+      "passwordHash": "dc384cca64405f7e3570cc9e4233f2fe:912371e10da2ec971288c8ffcb8e5297d905ff1be31987c2c1b2fde2a27b5545d3ac548fb1bc992a728ba1a0d7f372de9c8eaf3e8bcbe9774432a51694fe27fc",
+      "createdAt": "2026-10-17T13:22:08.900Z"
+    },
+    {
+      "id": 2,
+      "fullName": "Alex Rivera",
+      "email": "hello@gmail.com",
+      "passwordHash": "6c0ad290e8168f660709840e544edba5:172ab54a3b9d4ead4f77a07a037c4a97cca78457e2a3bf32db088d6da263886ca96c6cabaab6c072515387fb6068271cb079589ad94767d5f542f878d03f55cc",
+      "createdAt": "2026-11-16T13:24:19.158Z"
+    }
+  ],
+  "customers": [
+    {
+      "id": 1,
+      "name": "Maya Lin",
+      "phone": "(415) 555-0142",
+      "email": "maya.lin@example.com",
+      "address": "412 Maple Street, Apt 4B",
+      "notes": "Prefers SMS text updates when ready for pickup.",
+      "createdAt": "2026-10-29T13:22:08.900Z"
+    },
+    {
+      "id": 2,
+      "name": "Jordan Brooks",
+      "phone": "(415) 555-0198",
+      "email": "j.brooks@example.com",
+      "address": "890 Oakridge Ave",
+      "notes": "University student — rush repairs when possible.",
+      "createdAt": "2026-11-02T13:22:08.900Z"
+    },
+    {
+      "id": 3,
+      "name": "Elena Vance",
+      "phone": "(415) 555-0231",
+      "email": "elena.vance@example.com",
+      "address": "125 Pinecrest Blvd",
+      "notes": "Drops off multiple family devices.",
+      "createdAt": "2026-11-06T13:22:08.900Z"
+    },
+    {
+      "id": 4,
+      "name": "Marcus Chen",
+      "phone": "(415) 555-0277",
+      "email": "mchen@example.com",
+      "address": "77 Cedar Lane",
+      "notes": "",
+      "createdAt": "2026-11-11T13:22:08.900Z"
+    },
+    {
+      "id": 5,
+      "name": "Priya Patel",
+      "phone": "(415) 555-0319",
+      "email": "priya.patel@example.com",
+      "address": "305 Elmwood Court",
+      "notes": "Needs itemized receipt for work reimbursement.",
+      "createdAt": "2026-11-14T13:22:08.900Z"
+    }
+  ],
+  "devices": [
+    {
+      "id": 1,
+      "customerId": 1,
+      "deviceType": "Phone",
+      "brand": "Apple",
+      "model": "iPhone 14 Pro",
+      "serialNumber": "F2LZN849Q1",
+      "createdAt": "2026-10-29T13:22:08.900Z"
+    },
+    {
+      "id": 2,
+      "customerId": 1,
+      "deviceType": "Laptop",
+      "brand": "Apple",
+      "model": "MacBook Air M2",
+      "serialNumber": "C02YM412J1",
+      "createdAt": "2026-11-09T13:22:08.900Z"
+    },
+    {
+      "id": 3,
+      "customerId": 2,
+      "deviceType": "Laptop",
+      "brand": "Dell",
+      "model": "XPS 15 9520",
+      "serialNumber": "DXPS9520-881",
+      "createdAt": "2026-11-02T13:22:08.900Z"
+    },
+    {
+      "id": 4,
+      "customerId": 3,
+      "deviceType": "Phone",
+      "brand": "Samsung",
+      "model": "Galaxy S23 Ultra",
+      "serialNumber": "R58T9120XK",
+      "createdAt": "2026-11-06T13:22:08.900Z"
+    },
+    {
+      "id": 5,
+      "customerId": 3,
+      "deviceType": "Laptop",
+      "brand": "Lenovo",
+      "model": "ThinkPad X1 Carbon",
+      "serialNumber": "PF3K9201",
+      "createdAt": "2026-11-12T13:22:08.900Z"
+    },
+    {
+      "id": 6,
+      "customerId": 4,
+      "deviceType": "Phone",
+      "brand": "Google",
+      "model": "Pixel 8",
+      "serialNumber": "GP8-441029",
+      "createdAt": "2026-11-11T13:22:08.900Z"
+    },
+    {
+      "id": 7,
+      "customerId": 5,
+      "deviceType": "Laptop",
+      "brand": "HP",
+      "model": "Spectre x360 14",
+      "serialNumber": "5CD21988KP",
+      "createdAt": "2026-11-14T13:22:08.900Z"
+    }
+  ],
+  "repairs": [
+    {
+      "id": 1,
+      "ticketCode": "FT-1001",
+      "customerId": 1,
+      "deviceId": 1,
+      "issueDescription": "Cracked OLED display after drop; Face ID still functional.",
+      "diagnosisNotes": "Replaced OEM-grade OLED assembly and transferred True Tone serial.",
+      "status": "Collected",
+      "estimatedCost": 229,
+      "finalCost": 229,
+      "amountPaid": 229,
+      "paymentStatus": "Paid",
+      "createdAt": "2026-10-29T13:22:08.900Z",
+      "updatedAt": "2026-10-31T13:22:08.900Z",
+      "completedAt": "2026-10-31T13:22:08.900Z"
+    },
+    {
+      "id": 2,
+      "ticketCode": "FT-1002",
+      "customerId": 2,
+      "deviceId": 3,
+      "issueDescription": "Laptop hinge loose on right side and keyboard keys sticking.",
+      "diagnosisNotes": "Rebuilt brass hinge standoffs and replaced keyboard deck.",
+      "status": "Collected",
+      "estimatedCost": 185,
+      "finalCost": 195,
+      "amountPaid": 195,
+      "paymentStatus": "Paid",
+      "createdAt": "2026-11-02T13:22:08.900Z",
+      "updatedAt": "2026-11-05T13:22:08.900Z",
+      "completedAt": "2026-11-05T13:22:08.900Z"
+    },
+    {
+      "id": 3,
+      "ticketCode": "FT-1003",
+      "customerId": 3,
+      "deviceId": 4,
+      "issueDescription": "USB-C charging port intermittent; fast charging fails.",
+      "diagnosisNotes": "Sub-board USB-C daughterboard replaced; tested at 45W.",
+      "status": "Ready",
+      "estimatedCost": 95,
+      "finalCost": 95,
+      "amountPaid": 45,
+      "paymentStatus": "Partial",
+      "createdAt": "2026-11-10T13:22:08.900Z",
+      "updatedAt": "2026-11-15T13:22:08.900Z",
+      "completedAt": "2026-11-15T13:22:08.900Z"
+    },
+    {
+      "id": 4,
+      "ticketCode": "FT-1004",
+      "customerId": 1,
+      "deviceId": 2,
+      "issueDescription": "Battery service warning; shuts off unexpectedly around 20%.",
+      "diagnosisNotes": "Battery cycle count at 712. New battery cell installed, calibrating.",
+      "status": "Ready",
+      "estimatedCost": 169,
+      "finalCost": 169,
+      "amountPaid": 0,
+      "paymentStatus": "Unpaid",
+      "createdAt": "2026-11-11T13:22:08.900Z",
+      "updatedAt": "2026-11-15T13:22:08.900Z",
+      "completedAt": "2026-11-15T13:22:08.900Z"
+    },
+    {
+      "id": 5,
+      "ticketCode": "FT-1005",
+      "customerId": 4,
+      "deviceId": 6,
+      "issueDescription": "Back glass shattered near camera bar; microphone muffled.",
+      "diagnosisNotes": "Waiting for replacement rear housing adhesive seal to cure.",
+      "status": "In Progress",
+      "estimatedCost": 110,
+      "finalCost": 110,
+      "amountPaid": 50,
+      "paymentStatus": "Partial",
+      "createdAt": "2026-11-13T13:22:08.900Z",
+      "updatedAt": "2026-11-15T13:22:08.900Z",
+      "completedAt": null
+    },
+    {
+      "id": 6,
+      "ticketCode": "FT-1006",
+      "customerId": 3,
+      "deviceId": 5,
+      "issueDescription": "Cooling fan rattling loudly under load and thermal throttling.",
+      "diagnosisNotes": "Dust buildup cleared; replacement fan ordered from supplier.",
+      "status": "In Progress",
+      "estimatedCost": 135,
+      "finalCost": 135,
+      "amountPaid": 0,
+      "paymentStatus": "Unpaid",
+      "createdAt": "2026-11-14T13:22:08.900Z",
+      "updatedAt": "2026-11-16T13:22:08.900Z",
+      "completedAt": null
+    },
+    {
+      "id": 7,
+      "ticketCode": "FT-1007",
+      "customerId": 5,
+      "deviceId": 7,
+      "issueDescription": "No power when charger plugged in; charging LED blinks amber.",
+      "diagnosisNotes": "Initial intake complete. Scheduled for motherboard power rail check.",
+      "status": "Received",
+      "estimatedCost": 150,
+      "finalCost": 150,
+      "amountPaid": 0,
+      "paymentStatus": "Unpaid",
+      "createdAt": "2026-11-15T13:22:08.900Z",
+      "updatedAt": "2026-11-15T13:22:08.900Z",
+      "completedAt": null
+    }
+  ]
+}

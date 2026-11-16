@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FixTrack — Repair Shop Management System</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <!-- Authentication Screen -->
+  <section id="auth-screen" class="auth-wrapper">
+    <div class="auth-card">
+      <div class="brand-header">
+        <div class="brand-badge">FT</div>
+        <span class="brand-name">FixTrack</span>
+      </div>
+      <h1 id="auth-title" class="auth-title">Sign in to shop dashboard</h1>
+      <p class="auth-subtitle">Manage customers, phones & laptops, repair status, and USD payments.</p>
+
+      <div class="auth-tabs">
+        <button type="button" id="tab-login" class="auth-tab active">Sign In</button>
+        <button type="button" id="tab-register" class="auth-tab">Register</button>
+      </div>
+
+      <div id="auth-error" class="alert-error hidden"></div>
+
+      <form id="auth-form" class="form-stack">
+        <div id="register-name-group" class="form-group hidden">
+          <label for="auth-fullname">Full Name</label>
+          <input type="text" id="auth-fullname" placeholder="Alex Rivera" />
+        </div>
+        <div class="form-group">
+          <label for="auth-email">Email Address</label>
+          <input type="email" id="auth-email" required placeholder="tech@fixtrack.local" />
+        </div>
+        <div class="form-group">
+          <label for="auth-password">Password</label>
+          <input type="password" id="auth-password" required minlength="6" placeholder="At least 6 characters" />
+        </div>
+        <button type="submit" id="auth-submit-btn" class="btn btn-primary btn-full">Sign In</button>
+      </form>
+
+      <div id="demo-credentials-row" class="demo-row">
+        <span>Demo: <strong>tech@fixtrack.local</strong> / <strong>fixtrack123</strong></span>
+        <button type="button" id="fill-demo-btn" class="btn-link">Use Demo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Dashboard Layout -->
+  <div id="app-shell" class="app-shell hidden">
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-row">
+          <div class="brand-badge">FT</div>
+          <span class="brand-name">FixTrack</span>
+        </div>
+        <button type="button" id="close-sidebar-btn" class="mobile-only icon-btn" aria-label="Close menu">&times;</button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button type="button" class="nav-item active" data-view="dashboard">Dashboard</button>
+        <button type="button" class="nav-item" data-view="repairs">Repairs</button>
+        <button type="button" class="nav-item" data-view="customers">Customers</button>
+        <button type="button" class="nav-item" data-view="devices">Devices</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div id="user-name" class="user-name">Staff</div>
+          <div id="user-email" class="user-email">tech@fixtrack.local</div>
+        </div>
+        <button type="button" id="logout-btn" class="btn btn-secondary btn-full">Sign Out</button>
+      </div>
+    </aside>
+
+    <div class="main-column">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button type="button" id="open-sidebar-btn" class="mobile-only icon-btn" aria-label="Open menu">&#9776;</button>
+          <div class="breadcrumb">
+            <span class="muted">FixTrack</span>
+            <span class="muted">/</span>
+            <strong id="page-title">Dashboard</strong>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <input type="search" id="global-search" class="search-input" placeholder="Search customer, ticket, device..." />
+          <button type="button" id="open-new-repair-btn" class="btn btn-primary">+ New Repair</button>
+        </div>
+      </header>
+
+      <main class="content-area">
+        <!-- Dashboard View -->
+        <section id="view-dashboard" class="view-section">
+          <div id="kpi-grid" class="kpi-grid"></div>
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <h2>Repair Pipeline Breakdown</h2>
+                <p class="muted-small">Click any stage to filter repair tickets.</p>
+              </div>
+              <span id="total-billed-label" class="mono-small"></span>
+            </div>
+            <div id="pipeline-grid" class="pipeline-grid"></div>
+          </div>
+
+          <div class="dashboard-split">
+            <div class="panel">
+              <div class="panel-header">
+                <h2>Recent Repair Tickets</h2>
+              </div>
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Ticket</th>
+                      <th>Customer & Device</th>
+                      <th>Status</th>
+                      <th class="text-right">Cost</th>
+                      <th class="text-right">Payment</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recent-repairs-body"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <h2>Pending Payments</h2>
+              </div>
+              <div id="unpaid-list" class="unpaid-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Repairs View -->
+        <section id="view-repairs" class="view-section hidden">
+          <div class="toolbar-panel">
+            <div id="status-filter-tabs" class="segmented-tabs">
+              <button type="button" class="seg-tab active" data-status="">All</button>
+              <button type="button" class="seg-tab" data-status="Received">Received</button>
+              <button type="button" class="seg-tab" data-status="In Progress">In Progress</button>
+              <button type="button" class="seg-tab" data-status="Ready">Ready</button>
+              <button type="button" class="seg-tab" data-status="Collected">Collected</button>
+            </div>
+            <div class="filter-inline">
+              <label for="payment-filter-select">Payment:</label>
+              <select id="payment-filter-select">
+                <option value="">All Payments</option>
+                <option value="Unpaid">Unpaid</option>
+                <option value="Partial">Partial</option>
+                <option value="Paid">Paid</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Ticket</th>
+                    <th>Customer</th>
+                    <th>Device & Issue</th>
+                    <th>Status</th>
+                    <th class="text-right">Final Cost</th>
+                    <th class="text-right">Paid</th>
+                    <th class="text-right">Payment</th>
+                    <th class="text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="repairs-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Customers View -->
+        <section id="view-customers" class="view-section hidden">
+          <div class="section-header-row">
+            <div>
+              <h2>Customer Directory</h2>
+              <p class="muted-small">Click a customer name to view devices and repair history.</p>
+            </div>
+            <button type="button" id="add-customer-btn" class="btn btn-primary">+ Add Customer</button>
+          </div>
+          <div class="panel">
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Customer</th>
+                    <th>Contact</th>
+                    <th class="text-right">Devices</th>
+                    <th class="text-right">Repairs</th>
+                    <th class="text-right">Total Paid</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="customers-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Devices View -->
+        <section id="view-devices" class="view-section hidden">
+          <div class="section-header-row">
+            <div id="device-type-tabs" class="segmented-tabs">
+              <button type="button" class="seg-tab active" data-type="">All Devices</button>
+              <button type="button" class="seg-tab" data-type="Phone">Phones</button>
+              <button type="button" class="seg-tab" data-type="Laptop">Laptops</button>
+            </div>
+            <button type="button" id="add-device-btn" class="btn btn-primary">+ Add Device</button>
+          </div>
+          <div class="panel">
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Device</th>
+                    <th>Type</th>
+                    <th>Serial / IMEI</th>
+                    <th>Owner</th>
+                    <th class="text-right">Repairs</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="devices-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal Container -->
+  <div id="modal-backdrop" class="modal-backdrop hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-title">Modal</h3>
+        <button type="button" id="modal-close-btn" class="icon-btn" aria-label="Close">&times;</button>
+      </div>
+      <div id="modal-body" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Customer Detail Drawer -->
+  <div id="drawer-backdrop" class="drawer-backdrop hidden">
+    <div class="drawer-panel">
+      <div class="modal-header">
+        <h3 id="drawer-title">Customer Details</h3>
+        <button type="button" id="drawer-close-btn" class="icon-btn" aria-label="Close">&times;</button>
+      </div>
+      <div id="drawer-body" class="drawer-body"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
